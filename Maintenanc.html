@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خطة الصيانة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            font-weight: 700;
+            font-size: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            direction: rtl;
+            text-align: center;
+        }
+        header {
+            background-color: rgb(49,168,158);
+            color: white;
+            font-size: 24px;
+            padding: 0px 0;
+            border-radius: 20px;
+            width: 100%;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2em;
+            gap: 15px;
+        }
+        .dropdown, .maintenance-btn {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content, .maintenance-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 20px;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a, .maintenance-content a {
+            font-size: 20px;
+            font-weight: bold;
+            color: black;
+            padding: 14px 18px;
+            text-decoration: none;
+            display: block;
+            text-align: right;
+        }
+        .dropdown-content a:hover, .maintenance-content a:hover {
+            background-color: #e0e0e0;
+        }
+        .dropdown:hover .dropdown-content, .maintenance-btn:hover .maintenance-content {
+            display: block;
+        }
+        .dropbtn, .maintenance-btn .dropbtn {
+            background-color: rgb(49,168,158);
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        .dropdown:hover .dropbtn, .maintenance-btn:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+        .maintenance-btn {
+            margin-top: 6em;
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* تباعد بين أزرار خطة الصيانة */
+        }
+        .form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2em;
+    gap: 15px; /* تباعد بين الخانات */
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form-group label {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+.form-group input {
+    font-size: 18px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 150px; /* عرض متساوي للخانات */
+}
+.form-group select {
+    font-size: 18px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 166px;
+    background-color: white; /* ضمان تطابق الخلفية */
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>خطة الصيانة</h1>
+    </header>
+    <div class="nav">
+        <!-- تصنيف الطريق -->
+        <div class="dropdown">
+            <button class="dropbtn">تصنيف الطريق</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="selectOption(this, 'تصنيف الطريق')">سريع</a>
+                <a href="#" onclick="selectOption(this, 'تصنيف الطريق')">شرياني</a>
+                <a href="#" onclick="selectOption(this, 'تصنيف الطريق')">تجميعي</a>
+                <a href="#" onclick="selectOption(this, 'تصنيف الطريق')">محلي</a>
+            </div>
+        </div>
+
+        <!-- البلدية -->
+        <div class="dropdown">
+            <button class="dropbtn">البلدية</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="selectOption(this, 'البلدية')">المنطقة المركزية</a>
+                <a href="#" onclick="selectOption(this, 'البلدية')">قباء</a>
+                <a href="#" onclick="selectOption(this, 'البلدية')">العوالي</a>
+                <a href="#" onclick="selectOption(this, 'البلدية')">أحد</a>
+                <a href="#" onclick="selectOption(this, 'البلدية')">العقيق</a>
+                
+            </div>
+        </div>
+
+        <!-- المنطقة -->
+        <div class="dropdown">
+            <button class="dropbtn">المنطقة</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="selectOption(this, 'المنطقة')">البيداء</a>
+                <a href="#" onclick="selectOption(this, 'المنطقة')">الربوة</a>
+                <a href="#" onclick="selectOption(this, 'المنطقة')">الخليل</a>
+                <a href="#" onclick="selectOption(this, 'المنطقة')">قباء</a>
+                <a href="#" onclick="selectOption(this, 'المنطقة')">الخندق</a>
+                <a href="#" onclick="selectOption(this, 'المنطقة')">الهجرة</a>
+                <a href="#" onclick="selectOption(this, 'المنطقة')">أحد</a>
+                <a href="#" onclick="selectOption(this, 'المنطقة')">العقيق</a>
+            </div>
+        </div>
+
+        <!-- الحي -->
+        <div class="dropdown">
+            <button class="dropbtn">الحي</button>
+            <div class="dropdown-content">
+                <a href="#" onclick="selectOption(this, 'الحي')">الغابة</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">النخيل</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">بني معاوية</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">الاسكان</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">الخالدية</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">العريض</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">الراية</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">الرانوناء</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">الجابرة</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">الدرع</a>
+                <a href="#" onclick="selectOption(this, 'الحي')">الروابي</a>
+            </div>
+        </div>
+
+        <!-- الشارع -->
+
+
+        <div class="dropdown">
+            <button class="dropbtn">الشارع</button>
+            <div class="dropdown-content" id="street-dropdown">
+                <a href="#" onclick="selectOption(this, 'الشارع')">عبد الله بن جبير</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">السلام</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">رافع بن يزيد</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">بجير بن بجرة</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">أسيد بن كعب</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">الأمير محمد بن عبد العزيز</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">خالد بن عبد الملك</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">خالد بن الوليد</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">الملك فيصل بن عبد العزيز</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">الإمام مسلم</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">سلطانة</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">الملك عبد الله بن عبد العزيز</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">طريق مدينة-ينبع</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">الملك خالد بن عبدالعزيز</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">طريق حائل المدينة المنورة - السريع</a>
+                <a href="#" onclick="selectOption(this, 'الشارع')">الهجرة</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="maintenance-btn">
+    <div class="dropdown">
+        <button class="dropbtn">خطة الصيانة</button>
+        <div class="maintenance-content">
+            <a href="#" onclick="selectOption(this, 'خطة الصيانة')">عقد قائم</a>
+            <a href="#" onclick="selectOption(this, 'خطة الصيانة')">عقد للطرح</a>
+            <a href="#" onclick="selectOption(this, 'خطة الصيانة')">خطة تنبؤية</a>
+        </div>
+    </div>
+</div>
+
+<div class="form-container">
+    <div class="form-group">
+        <label>مدة الخطة</label>
+        <input type="number" placeholder="مدة الخطة" maxlength="3" oninput="checkInput(this, 999)">
+    </div>
+    <div class="form-group">
+        <label>UDI الحالي</label>
+        <input type="number" id="current-udi" placeholder="UDI الحالي" value="58" oninput="updateUdiAndBudget()" maxlength="3">
+    </div>
+    <div class="form-group">
+        <label>الميزانية</label>
+        <input type="number" id="budget" placeholder="الميزانية" oninput="updateTargetUdi()">
+    </div>
+    <div class="form-group">
+        <label>UDI المستهدف</label>
+        <input type="number" id="target-udi" placeholder="UDI المستهدف" maxlength="3" oninput="updateBudget()">
+    </div>
+    <div class="form-group">
+        <label>المساحة المغطاة</label>
+        <input type="number" placeholder="المساحة المغطاة">
+    </div>
+    <div class="form-group">
+        <label>نوع الصيانة</label>
+        <select>
+            <option value="وفق قرارات الصيانة">وفق قرارات الصيانة</option>
+            <option value="طارئة">طارئة</option>
+        </select>
+    </div>
+     
+</div>
+
+
+<script>
+function selectOption(element, category) {
+    const button = element.closest('.dropdown').querySelector('.dropbtn');
+    button.innerText = `${category} (${element.innerText})`;
+
+    // تحديث قيمة UDI الحالي بناءً على الاختيار
+    if (category === 'تصنيف الطريق') {
+        const currentUdiField = document.getElementById('current-udi');
+        let currentUdi = 58; // القيمة الافتراضية
+
+        switch (element.innerText) {
+            case 'سريع':
+                currentUdi = 81;
+                filterStreetOptions(true); // إظهار آخر 5 خيارات فقط
+                break;
+            case 'شرياني':
+                currentUdi = 73;
+                filterStreetOptions(false); // إظهار جميع الخيارات
+                break;
+            case 'تجميعي':
+                currentUdi = 59;
+                filterStreetOptions(false); // إظهار جميع الخيارات
+                break;
+            case 'محلي':
+                currentUdi = 53;
+                filterStreetOptions(false); // إظهار جميع الخيارات
+                break;
+            default:
+                currentUdi = 58;
+                filterStreetOptions(false); // إظهار جميع الخيارات
+        }
+
+        currentUdiField.value = currentUdi;
+
+        // تحديث الميزانية وUDI المستهدف
+        updateTargetUdi();
+        updateBudget();
+    } else if (category === 'الشارع') {
+        updateCurrentUdiBasedOnStreet(element.innerText);
+        updateTargetUdi();
+        updateBudget();
+    }
+}
+
+function filterStreetOptions(showLastFive) {
+    const streetDropdown = document.getElementById('street-dropdown');
+    const options = streetDropdown.querySelectorAll('a');
+
+    if (showLastFive) {
+        options.forEach((option, index) => {
+            if (index < options.length - 5) {
+                option.style.display = 'none';
+            } else {
+                option.style.display = 'block';
+            }
+        });
+    } else {
+        options.forEach(option => {
+            option.style.display = 'block';
+        });
+    }
+}
+
+function updateCurrentUdiBasedOnStreet(street) {
+    const currentUdiField = document.getElementById('current-udi');
+    let currentUdi;
+
+    switch (street) {
+        case 'الملك عبد الله بن عبد العزيز':
+            currentUdi = 84;
+            break;
+        case 'طريق مدينة-ينبع':
+            currentUdi = 69;
+            break;
+        case 'الملك خالد بن عبدالعزيز':
+            currentUdi = 85;
+            break;
+        case 'طريق حائل المدينة المنورة - السريع':
+            currentUdi = 73;
+            break;
+        case 'الهجرة':
+            currentUdi = 75;
+            break;
+        default:
+            currentUdi = 58;
+    }
+
+    currentUdiField.value = currentUdi;
+}
+
+function updateTargetUdi() {
+    const budget = document.getElementById('budget').value;
+    const currentUdi = document.getElementById('current-udi').value;
+    const targetUdiField = document.getElementById('target-udi');
+
+    if (budget && currentUdi) {
+        // معادلة تحديث UDI المستهدف
+        const targetUdi = Math.min(parseFloat(currentUdi) + parseFloat(budget) / 10000000, 100);
+        targetUdiField.value = targetUdi.toFixed(2);
+    }
+}
+
+
+function updateUdiAndBudget() {
+    const currentUdi = document.getElementById('current-udi').value;
+    const budgetField = document.getElementById('budget');
+    const targetUdiField = document.getElementById('target-udi');
+
+    if (currentUdi) {
+        if (budgetField.value) {
+            // معادلة تحديث UDI المستهدف
+            const targetUdi = Math.min(parseFloat(currentUdi) + parseFloat(budgetField.value) / 10000000, 100);
+            targetUdiField.value = targetUdi.toFixed(2);
+        } else {
+            targetUdiField.value = ''; // مسح قيمة UDI المستهدف إذا لم تُدخل الميزانية
+        }
+    }
+}
+
+function updateBudget() {
+    const targetUdi = document.getElementById('target-udi').value;
+    const currentUdi = document.getElementById('current-udi').value;
+    const budgetField = document.getElementById('budget');
+
+    if (targetUdi && currentUdi) {
+        // معادلة تحديث الميزانية بناءً على UDI المستهدف
+        const budget = (parseFloat(targetUdi) - parseFloat(currentUdi)) * 10000000;
+        budgetField.value = budget.toFixed(2);
+    }
+}
+
+</script>
+
+
+
+</body>
+</html>
